@@ -15,17 +15,64 @@
 </head>
 
 <body>
-    <div class="warpper">
+    <div class="wrapper">
         <header class="header">
-
+            <ul>
+                <li>推荐</li>
+                <li>热点</li>
+                <li>视频</li>
+                <li>版本</li>
+                <li>介绍</li>
+            </ul>
         </header>
         <section class="section">
-
+            <div class="scroll">
+                <div class="banner">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" style="background:red"></div>
+                            <div class="swiper-slide" style="background:skyblue"></div>
+                            <div class="swiper-slide" style="background:greenyellow"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list">
+                    <dl>
+                        <dt><img src="" alt=""></dt>
+                        <dd></dd>
+                    </dl>
+                </div>
+            </div>
         </section>
         <footer class="footer">
 
         </footer>
     </div>
 </body>
+<script>
+    var list = document.querySelector('.list');
+    var mySwiper = new Swiper('.swiper-container', {
+        autoplay: true
+    })
+    var myBScroll = new BScroll('.section', {})
+    $.ajax({
+        url: "./list.json",
+        success: function(data) {
+            init(data.list);
+        }
+    })
+
+    function init(data) {
+        var str = '';
+        data.forEach(function(v, i) {
+            str += `<dl>
+                        <dt><img src="${v.imgs}" alt=""></dt>
+                        <dd>${v.title}</dd>
+                    </dl>`;
+        })
+        list.innerHTML = str;
+
+    }
+</script>
 
 </html>
